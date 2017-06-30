@@ -26,18 +26,18 @@ install:
   - qiita-env make --no-load-ontologies
   - source deactivate
   # Install the plugin
-  - travis_retry conda create --yes -n env_name python=$PYTHON_VERSION pip nose flake8 coverage
-  - source activate env_name
+  - travis_retry conda create --yes -n qtp-visualization python=$PYTHON_VERSION --file https://raw.githubusercontent.com/qiime2/environment-files/master/latest/staging/qiime2-latest-conda-linux-64.txt
+  - source activate qtp-visualization
   - pip install https://github.com/qiita-spots/qiita_client/archive/master.zip
   - pip install coveralls
   - travis_retry pip install . --process-dependency-links
-  - configure_visualization_types --env-script "source activate env_name" --server-cert $QIITA_SERVER_CERT
+  - configure_visualization_types --env-script "source activate qtp-visualization" --server-cert $QIITA_SERVER_CERT
 before_script:
   - source activate qiita
   - qiita plugins update
   - qiita pet webserver --no-build-docs start &
 script:
-  - source activate env_name
+  - source activate qtp-visualization
   - sleep 5 # give enough time to the webserver to start
   - nosetests --with-doctest --with-coverage -v --cover-package=qtp_visualization
   - flake8 qtp_visualization setup.py scripts
