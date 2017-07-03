@@ -29,7 +29,7 @@ install:
   - travis_retry conda create --yes -n qtp-visualization python=$PYTHON_VERSION --file https://raw.githubusercontent.com/qiime2/environment-files/master/latest/staging/qiime2-latest-conda-linux-64.txt
   - source activate qtp-visualization
   - pip install https://github.com/qiita-spots/qiita_client/archive/master.zip
-  - pip install coveralls
+  - pip install coveralls flake8
   - travis_retry pip install . --process-dependency-links
   - configure_visualization_types --env-script "source activate qtp-visualization" --server-cert $QIITA_SERVER_CERT
 before_script:
