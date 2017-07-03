@@ -22,6 +22,7 @@ artifact_types = [
 def generate_html_summary(qclient, job_id, parameters, out_dir):
     return True, None, ""
 
+
 # Initialize the plugin
 plugin = QiitaTypePlugin('Visualization types', '0.1.0',
                          'Visualization artifacts type plugin',
