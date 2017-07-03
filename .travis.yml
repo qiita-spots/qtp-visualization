@@ -39,7 +39,7 @@ before_script:
 script:
   - source activate qtp-visualization
   - sleep 5 # give enough time to the webserver to start
-  - start_diversity_types "https://localhost:21174" register ignored
+  - start_visualization_types "https://localhost:21174" register ignored
   - nosetests --with-doctest --with-coverage -v --cover-package=qtp_visualization
   - flake8 qtp_visualization setup.py scripts
 addons:
