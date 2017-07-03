@@ -13,6 +13,7 @@ from os import remove
 from shutil import rmtree
 from functools import partial
 from json import dumps
+from time import sleep
 
 from qiita_client.testing import PluginTestCase
 from qiita_client import ArtifactInfo
@@ -28,6 +29,9 @@ class ValidateTests(PluginTestCase):
         path_builder = partial(join, dirname(__file__), 'test_data')
         self.valid_qzv = path_builder('good_vis.qzv')
         self.invalid_qzv = path_builder('bad_vis.qzv')
+
+        # Debugging
+        sleep(5)
 
     def tearDown(self):
         for fp in self._clean_up_files:
