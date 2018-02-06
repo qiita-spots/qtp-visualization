@@ -13,7 +13,7 @@ from .validate import validate
 # Define the supported artifact types
 artifact_types = [
     QiitaArtifactType('q2_visualization', 'Qiime 2 visualization',
-                      False, False, [('qzv', True)])]
+                      False, False, False, [('qzv', True)])]
 
 
 # The visualization is the summary itself, so we don't need a
