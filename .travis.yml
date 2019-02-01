@@ -2,7 +2,7 @@ language: python
 sudo: required
 group: deprecated-2017Q4
 env:
-  - PYTHON_VERSION=3.5
+  - PYTHON_VERSION=3.6
 before_install:
   - wget http://repo.continuum.io/miniconda/Miniconda3-3.7.3-Linux-x86_64.sh -O miniconda.sh
   - chmod +x miniconda.sh
@@ -43,7 +43,7 @@ script:
   - nosetests --with-doctest --with-coverage -v --cover-package=qtp_visualization
   - flake8 qtp_visualization setup.py scripts
 addons:
-  postgresql: "9.3"
+  postgresql: "9.5"
 services:
   - redis-server
   - postgresql
