@@ -46,7 +46,7 @@ script:
   - nosetests --with-doctest --with-coverage -v --cover-package=qtp_visualization
   - flake8 qtp_visualization setup.py scripts
 addons:
-  postgresql: "9.3"
+  postgresql: "9.5"
 services:
   - redis-server
   - postgresql
