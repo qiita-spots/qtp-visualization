@@ -38,10 +38,11 @@ install:
 before_script:
   - source activate qiita
   - qiita plugins update
-  - qiita pet webserver --no-build-docs start &
+  - supervisord -c ${PWD}/qiita-dev/qiita_pet/supervisor_example.conf
+  - sleep 10 # give enough time to the webserver to start
+  - cat /tmp/supervisord.log
 script:
   - source activate qtp-visualization
-  - sleep 5 # give enough time to the webserver to start
   - start_visualization_types "https://localhost:21174" register ignored
   - nosetests --with-doctest --with-coverage -v --cover-package=qtp_visualization
   - flake8 qtp_visualization setup.py scripts
