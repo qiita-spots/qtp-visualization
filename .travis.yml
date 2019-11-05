@@ -33,7 +33,7 @@ install:
   - source activate qtp-visualization
   - pip install https://github.com/qiita-spots/qiita_client/archive/master.zip
   - pip install coveralls flake8
-  - travis_retry pip install . --process-dependency-links
+  - travis_retry pip install .
   - configure_visualization_types --env-script "source activate qtp-visualization" --server-cert $QIITA_SERVER_CERT
 before_script:
   - source activate qiita
