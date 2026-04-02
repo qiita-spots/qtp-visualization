@@ -97,7 +97,7 @@ jobs:
 
           export ENVIRONMENT="source /home/runner/.profile; conda activate qtp-visualization"
           pip install -e .
-          pip --quiet install coveralls
+          pip --quiet install coveralls pytest-cov
 
           configure_visualization_types --env-script 'source /home/runner/.profile; conda activate qtp-visualization; export ENVIRONMENT="source /home/runner/.profile; conda activate qtp-visualization"' --server-cert $QIITA_ROOTCA_CERT
 
