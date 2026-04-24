@@ -42,6 +42,8 @@ setup(name='qtp_visualization',
       packages=['qtp_visualization'],
       scripts=glob('scripts/*'),
       extras_require={'test': ["nose >= 0.10.1", "pep8"]},
-      install_requires=['qiita_client', 'click >= 3.3', 'qiime2'],
+      install_requires=['click >= 3.3', 'qiime2',
+                        'qiita_client @ https://github.com/'
+                        'qiita-spots/qiita_client/archive/master.zip'],
       classifiers=classifiers
       )
