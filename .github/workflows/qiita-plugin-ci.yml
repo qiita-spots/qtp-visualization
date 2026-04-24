@@ -2,7 +2,7 @@
 
 on:
   push:
-    branches: [ dev ]
+    branches: [ master ]
   pull_request:
 
 jobs:
@@ -97,9 +97,9 @@ jobs:
 
           export ENVIRONMENT="source /home/runner/.profile; conda activate qtp-visualization"
           pip install -e .
-          pip --quiet install coveralls
+          pip --quiet install coveralls pytest-cov
 
-          configure_visualization_types --env-script 'source /home/runner/.profile; conda activate qtp-visualization; export ENVIRONMENT="source /home/runner/.profile; conda activate qtp-visualization"' --ca-cert $QIITA_ROOTCA_CERT
+          configure_visualization_types --env-script 'source /home/runner/.profile; conda activate qtp-visualization; export ENVIRONMENT="source /home/runner/.profile; conda activate qtp-visualization"' --server-cert $QIITA_ROOTCA_CERT
 
           echo "Available Qiita plugins"
           ls ~/.qiita_plugins/
@@ -143,7 +143,7 @@ jobs:
           export PYTHONWARNINGS="ignore:Certificate for localhost has no \`subjectAltName\`"
           export ENVIRONMENT="source /home/runner/.profile; conda activate qtp-visualization"
 
-          pytest qtp-visualization --doctest-modules --cov=qtp-visualization --cov-report=lcov --ignore=qtp-visualization/data
+          pytest qtp_visualization --doctest-modules --cov=qtp_visualization --cov-report=lcov --ignore=qtp_visualization/data
 
       - uses: codecov/codecov-action@v3
         with:
