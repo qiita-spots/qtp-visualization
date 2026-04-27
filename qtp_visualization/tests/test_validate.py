@@ -26,7 +26,8 @@ class ValidateTests(PluginTestCase):
         self.out_dir = mkdtemp()
         self._clean_up_files = [self.out_dir]
 
-        path_builder = partial(join, dirname(__file__), 'test_data')
+        path_builder = partial(join, self.base_data_dir,
+                               dirname(__file__), 'test_data')
         self.valid_qzv = path_builder('good_vis.qzv')
         self.invalid_qzv = path_builder('bad_vis.qzv')
 
@@ -43,19 +44,21 @@ class ValidateTests(PluginTestCase):
 
     def test_validate_q2_visualization(self):
         # Valid qzv
+        valid_qzv = self.qclient.push_file_to_central(self.valid_qzv)
         obs_succes, obs_ainfo, obs_error = _validate_q2_visualization(
-            {'qzv': [self.valid_qzv]}, self.out_dir)
+            {'qzv': [valid_qzv]}, self.out_dir)
         self.assertEqual(obs_error, "")
         self.assertTrue(obs_succes)
-        exp_files = [(self.valid_qzv, 'qzv'),
+        exp_files = [(valid_qzv, 'qzv'),
                      (join(self.out_dir, 'index.html'), 'html_summary'),
                      (join(self.out_dir, 'support_files'), 'html_summary_dir')]
         exp_ainfo = [ArtifactInfo(None, 'q2_visualization', exp_files)]
         self.assertEqual(obs_ainfo, exp_ainfo)
 
         # Invalid qzv
+        invalid_qzv = self.qclient.push_file_to_central(self.invalid_qzv)
         obs_succes, obs_ainfo, obs_error = _validate_q2_visualization(
-            {'qzv': [self.invalid_qzv]}, self.out_dir)
+            {'qzv': [invalid_qzv]}, self.out_dir)
         self.assertIn("Error loading Qiime 2 visualization:", obs_error)
         self.assertFalse(obs_succes)
         self.assertIsNone(obs_ainfo)
@@ -83,13 +86,14 @@ class ValidateTests(PluginTestCase):
         self.assertIsNone(obs_ainfo)
 
         # q2_visualization success
+        valid_qzv = self.qclient.push_file_to_central(self.valid_qzv)
         job_id, params = self._create_job('q2_visualization',
-                                          {'qzv': [self.valid_qzv]})
+                                          {'qzv': [valid_qzv]})
         obs_succes, obs_ainfo, obs_error = validate(
             self.qclient, job_id, params, self.out_dir)
         self.assertEqual(obs_error, "")
         self.assertTrue(obs_succes)
-        exp_files = [(self.valid_qzv, 'qzv'),
+        exp_files = [(valid_qzv, 'qzv'),
                      (join(self.out_dir, 'index.html'), 'html_summary'),
                      (join(self.out_dir, 'support_files'), 'html_summary_dir')]
         exp_ainfo = [ArtifactInfo(None, 'q2_visualization', exp_files)]
